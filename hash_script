@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Check if no argument is provided
+if [ -z "$1" ]; then
+    echo "Please provide a 4-digit integer as an argument."
+    exit 1
+fi
+
+# Check if the argument is a 4-digit integer
+if ! [[ $1 =~ ^[0-9]{4}$ ]]; then
+    echo "Input is not a valid 4-digit integer."
+    exit 1
+fi
+
+# Calculate the hash of the input using sha256sum
+input="$1"
+hash=$(echo -n "$input" | sha256sum | cut -d ' ' -f1)
+echo "Hash of $input is: $hash"
+
+# Save the output in hash_output.txt
+echo "$hash" > hash_output.txt
+echo "Hash output saved in hash_output.txt"
